@@ -1,0 +1,21 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1440 320"
+    className="absolute top-0 left-0 w-50% h-full"
+  >
+    <path
+      fill="#25244c"
+      d="M0,0 Q500,0 1440,0 L1440,0 L0,210Z"
+      transform="translate(25, -15) scale(1.03, 1)"
+    ></path>
+    <path
+      fill="#caa151"
+      d="M0,230 Q830,115 1440,0 L1440,40 L0,260Z"
+      transform="translate(25, -15) scale(1.03, 1)"
+    ></path>
+    <path
+      fill="#299552"
+      d="M0,280 Q900,170 1440,60 L1440,100 L0,300Z"
+      transform="translate(25, -15) scale(1.03, 1)"
+    ></path>
+  </svg>

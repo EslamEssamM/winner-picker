@@ -1,41 +1,53 @@
-import React, { useState } from "react";
-import * as XLSX from "xlsx";
-import "./App.css";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Statistics from './components/Statistics';
+import Winners from './components/Winners';
+import Header from './components/Header';
 
-function App() {
-  const [winners, setWinners] = useState([]);
+const App = () => {
+  const [data, setData] = useState([]);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  // const mockData = [
+  //   { name: "محمد", number: 1, path: "الطريق الأول", section: "المركز الأول" },
+  //   {
+  //     name: "أحمد",
+  //     number: 2,
+  //     path: "الطريق الثاني",
+  //     section: "المركز الثاني",
+  //   },
+  //   {
+  //     name: "عبدالله",
+  //     number: 3,
+  //     path: "الطريق الثالث",
+  //     section: "المركز الثالث",
+  //   },
+  //   { name: "علي", number: 4, path: "الطريق الرابع", section: "المركز الرابع" },
+  //   {
+  //     name: "عبدالرحمن",
+  //     number: 5,
+  //     path: "الطريق الخامس",
+  //     section: "المركز الخامس",
+  //   },
+  // ];
 
-    reader.onload = (e) => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-      const names = jsonData.flat().filter((name) => typeof name === "string");
-      const selectedWinners = names.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-      setWinners(selectedWinners);
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
-
+  // useEffect(() => {
+  //   setData(mockData);
+  // }, []);
   return (
-    <div className="App">
-      <h1>Upload an Excel File</h1>
-      <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-      <h2>Selected Winners</h2>
-      <ul>
-        {winners.map((winner, index) => (
-          <li key={index}>{winner}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-bgLight">
+        <Header />
+        <div className="container mx-auto p-4 bg-white rounded shadow-lg">
+          <Routes>
+            <Route path="/" element={<Home setData={setData} />} />
+            <Route path="/statistics" element={<Statistics data={data} />} />
+            <Route path="/winners" element={<Winners data={data} />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
