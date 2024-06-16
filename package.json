@@ -14,14 +14,12 @@
     "chart.js": "^4.4.3",
     "framer-motion": "^11.2.10",
     "react": "^18.2.0",
-    "react-awesome-shapes": "^0.1.12",
     "react-chartjs-2": "^5.2.0",
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
     "react-spring": "^9.7.3",
-    "recharts": "^2.12.7",
-    "xlsx": "^0.18.5"
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
