@@ -21,9 +21,6 @@ header svg {
   @apply mt-1 text-primary relative z-10;
 }
 
-.container {
-  @apply mx-auto p-4 bg-white rounded shadow-lg;
-}
 
 .button-primary {
   @apply bg-accent text-white py-2 px-4 rounded hover:bg-green-700;
@@ -43,3 +40,44 @@ header svg {
 input[type="file"] {
   @apply mb-4 p-2 border rounded bg-[#f0ebe5] border-gray-300;
 }
+
+.main-bg {
+  background-image: url("./assets/bg.png");
+
+  background-size: cover;
+  background-position: center;
+    backdrop-filter: blur(5px);
+
+}
+.hight-maximize {
+  height: calc(100vh - 200px);
+}
+.pattern {
+  background-image: url("./assets/pattern.jpg");
+  background-size: contain;
+  background-repeat: repeat;
+  background-position: center;
+  backdrop-filter: blur(30px);
+  /* background-opacity: 0.5; */
+}
+
+/* use fonts in assets */
+@font-face {
+  font-family: "TheSans-Bold";
+  src: url("./assets/TheSans-Bold KFSC");
+}
+@font-face {
+  font-family: "TheSans-Plain";
+  src: url("./assets/TheSans-Plain k2")''
+}
+
+.font-bold {
+  font-family: "TheSans-Bold";
+}
+
+/* apply font face to whole doc */
+
+body {
+  font-family: "TheSans-Plain";
+}
+

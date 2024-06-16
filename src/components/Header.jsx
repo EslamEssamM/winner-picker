@@ -1,8 +1,38 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/kfsc logo.png'; // replace with the path to your logo
 
 const Header = () => {
   return (
-    <header className="relative bg-[#f0ebe5] p-6 text-center overflow-hidden">
+    <nav className="flex justify-between items-center bg-[#201b50]  bg-opacity-50  h-28 p-2 relative">
+      <ul className="flex  justify-center gap-4 items-center w-[100%]">
+        <li>
+          <Link
+            className="text-[#ffffff] font-bold text-lg hover:bg-[#e8b34b] p-2 rounded"
+            to="/winners"
+          >
+            الفائزون في المسابقه
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="text-[#ffffff] font-bold text-lg hover:bg-[#e8b34b] p-2 rounded"
+            to="/"
+          >
+            الرئيسيه
+          </Link>
+        </li>
+      </ul>
+      <div className="flex justify-center items-center absolute top-0 right-0 ">
+        <img className="h-28 w-20" src={logo} alt="Logo" />
+      </div>
+    </nav>
+  );
+};
+
+export default Header;
+
+/*<header className="relative bg-[#f0ebe5] p-6 text-center overflow-hidden">
       <div className="absolute top-0 left-30px w-[40%] h-[100px]">
         <svg
           width="300"
@@ -34,7 +64,6 @@ const Header = () => {
       </div>
       <div className="relative z-10">
         <div className="absolute right-0 top-[-10px] border-t-2 border-secondary w-1/2">
-          {/* 2 filled circles at start and end */}
           <div className="absolute top-0 translate-y-[-50%] right-0 w-4 h-4 bg-secondary rounded-full"></div>{" "}
           <div className="absolute top-0 translate-y-[-50%] left-0 w-4 h-4 bg-secondary rounded-full"></div>{" "}
         </div>{" "}
@@ -47,8 +76,4 @@ const Header = () => {
         </h1>
         <p className="mt-1 text-textDark">بمناسبة موسم الحج لعام 1445 هـ</p>
       </div>
-    </header>
-  );
-};
-
-export default Header;
+    </header>*/

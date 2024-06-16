@@ -1,10 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const WinnerCard = ({ data, reveal, setReveal }) => {
+  const [current, setCurrent] = useState(null);
+
+  useEffect(() => {
+    let interval;
+
+    if (reveal) {
+      interval = setInterval(() => {
+        const randomUser = data[Math.floor(Math.random() * data.length)];
+        setCurrent(randomUser);
+      }, 100); // Change users every 100ms
+    }
+
+    return () => clearInterval(interval);
+  }, [reveal, data]);
+
+  useEffect(() => {
+    if (reveal) {
+      setTimeout(() => {
+        setReveal(false); // Stop revealing after 5 seconds
+        // setCurrent to a specific winner if needed, otherwise it stays the last randomly picked user
+      }, 4000);
+    }
+  }, [reveal, setReveal]);
+
+  const variants = {
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0 },
+  };
+
+  return (
+    <AnimatePresence>
+      {current && (
+        <motion.div
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          variants={variants}
+          className="w-full min-w-60 mx-4 my-0 mt-0  bg-[#f0ebe5] p-4 rounded shadow"
+        >
+          <div className="backdrop:bg-white shadow-lg rounded-lg p-2 border border-gray-200">
+            <p className="text-lg font-bold text-secondary text-center">
+              {current?.name}
+            </p>
+            <p className="text-primary text-center">الرقم: {current?.number}</p>
+            <p className="text-primary text-center">الطريق: {current?.path}</p>
+            <p className="text-primary text-center">
+              المركز: {current?.section}
+            </p>
+            <p className="text-primary text-center">جوال: {current?.phone}</p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Winners = ({ data }) => {
   const [winners, setWinners] = useState([]);
-  const [showWinners, setShowWinners] = useState([false, false, false]);
-const [curr, setCurr] = useState(0);
+  const [revealStatus, setRevealStatus] = useState(Array(3).fill(false));
+  const [currentReveal, setCurrentReveal] = useState(0);
+
   useEffect(() => {
     const selectedWinners = [];
     const uniqueIndexes = new Set();
@@ -15,65 +73,51 @@ const [curr, setCurr] = useState(0);
         uniqueIndexes.add(randomIndex);
         selectedWinners.push(data[randomIndex]);
       }
-      }
-      
+    }
 
     setWinners(selectedWinners);
   }, [data]);
 
-  const revealWinner = (index) => {
-    setShowWinners((prevState) => {
-      const newState = [...prevState];
-      newState[index] = true;
-      return newState;
-    });
-    setCurr(curr + 1);
-  };
-
-  const variants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
+  const handleRevealClick = () => {
+    if (currentReveal < 3) {
+      setRevealStatus((prev) =>
+        prev.map((item, index) => (index === currentReveal ? true : item))
+      );
+      setCurrentReveal(currentReveal + 1);
+    }
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4 text-center text-primary">
-        الفائزون
+    <div className="flex  rounded-xl bg-white bg-opacity-40 hight-maximize flex-col items-center  justify-evenly z-20 min-h-80 p-4  shadow-lg bg-transparent">
+      <div className="absolute rounded-xl pattern top-0 left-0 w-full h-full opacity-80 z-[-2] bg-[#201b50] z-1 bg-opacity-30"></div>{" "}
+      <h2 className="text-4xl font-bold mb-4 text-center text-primary">
+        الفائزون في المسابقة الثقافية لطلبة الكلية
       </h2>
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-row items-center ">
         {winners.map((winner, index) => (
-          <AnimatePresence key={index}>
-            {showWinners[index] && (
-              <motion.div
-                initial="hidden"
-                animate="show"
-                exit="hidden"
-                variants={variants}
-                className="w-full max-w-sm bg-[#f0ebe5] p-4 rounded shadow"
-              >
-                <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-                  <p className="text-lg font-bold text-secondary text-center">
-                    {winner?.name}
-                  </p>
-                  <p className="text-primary text-center">الرقم: {winner?.number}</p>
-                  {/* <p className="text-primary">الطريق: {winner?.الطريق}</p>
-                  <p className="text-primary">المركز: {winner?.المركز}</p>
-                  <p className="text-primary">جوال: {winner?.جوال}</p> */}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <WinnerCard
+            key={index}
+            data={data}
+            reveal={revealStatus[index]}
+            setReveal={() =>
+              setRevealStatus((prev) => {
+                const newStatus = [...prev];
+                newStatus[index] = false;
+                return newStatus;
+              })
+            }
+          />
         ))}
       </div>
-      <div className="flex justify-center space-x-4 mt-8">
-          <button
-            onClick={() => revealWinner(curr)}
-            className="bg-accent text-white py-2 px-4 rounded hover:bg-green-700"
-            disabled={curr > 2}
-              >
-                  {curr > 2 ? "تم اظهار الفائزين" : `اظهار الفائز رقم ${curr + 1}`}
-            </button>
-      </div>
+      <button
+        onClick={handleRevealClick}
+        className="mt-8 bg-accent text-white py-2 px-4 rounded hover:bg-green-700"
+        disabled={currentReveal > 2 || revealStatus.some((status) => status)}
+      >
+        {currentReveal > 2
+          ? "تم اظهار الفائزين"
+          : `اظهار الفائز رقم ${currentReveal + 1}`}
+      </button>
     </div>
   );
 };
