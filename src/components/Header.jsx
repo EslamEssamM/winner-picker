@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/kfsc logo.png'; // replace with the path to your logo
+import logo from '../assets/logo.png'; // replace with the path to your logo
 
 const Header = () => {
   return (
@@ -24,7 +24,7 @@ const Header = () => {
         </li>
       </ul>
       <div className="flex justify-center items-center absolute top-0 right-0 ">
-        <img className="h-28 w-20" src={logo} alt="Logo" />
+        <img className="h-28" src={logo} alt="Logo" />
       </div>
     </nav>
   );

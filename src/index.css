@@ -54,21 +54,20 @@ input[type="file"] {
 }
 .pattern {
   background-image: url("./assets/pattern.jpg");
-  background-size: contain;
   background-repeat: repeat;
   background-position: center;
   backdrop-filter: blur(30px);
-  /* background-opacity: 0.5; */
+  background-size: cover;
 }
 
 /* use fonts in assets */
 @font-face {
   font-family: "TheSans-Bold";
-  src: url("./assets/TheSans-Bold KFSC");
+  src: url("./assets/TheSans-Bold.otf");
 }
 @font-face {
   font-family: "TheSans-Plain";
-  src: url("./assets/TheSans-Plain k2")''
+  src: url("./assets/TheSans-Bold.otf");
 }
 
 .font-bold {

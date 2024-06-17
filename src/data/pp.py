@@ -5,6 +5,8 @@ import os
 print("Reading data.xlsx")
 # print current directory
 print(os.getcwd())
+# get curent dir and bend to the data.xlsx
+
 df = pd.read_excel('./data.xlsx')
 
 # Save to data.json
